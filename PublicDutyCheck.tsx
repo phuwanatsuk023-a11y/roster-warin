@@ -342,7 +342,7 @@ export const PublicDutyCheck: React.FC<PublicDutyCheckProps> = ({
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-2">
-            ตรวจสอบรายชื่อเวรยามประจำเดือน
+            ตรวจสอบรายชื่อเวรยาม
           </h1>
           <p className="text-sm sm:text-base text-emerald-100/90 mb-6 font-light">
             ค้นหาด้วยชื่อ-สกุล หรือ รหัสพนักงาน เพื่อดูวันเข้าเวร จุดประจำการ คู่เวรปฏิบัติงาน และผู้ตรวจเวรประจำเดือน
