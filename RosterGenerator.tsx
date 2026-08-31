@@ -85,7 +85,7 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
   // Font Size Settings (Customizable per point and per section)
   const [isFontSettingsOpen, setIsFontSettingsOpen] = useState<boolean>(false);
   const [globalFontSize, setGlobalFontSize] = useState<number>(14);
-  const [titleFontSize, setTitleFontSize] = useState<number>(14);
+  const [titleFontSize, setTitleFontSize] = useState<number>(14.5);
   const [headerFontSize, setHeaderFontSize] = useState<number>(14);
   const [dateColFontSize, setDateColFontSize] = useState<number>(14);
   const [inspectorColFontSize, setInspectorColFontSize] = useState<number>(14);
@@ -819,7 +819,7 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                   className="text-center font-bold mb-1.5 leading-snug"
                   style={{ fontSize: `${mainTitleFontSize}pt` }}
                 >
-                  เวรประจำสำนักงานเทศบาลเมืองวารินชำราบ สำนักงานโครงการปรับปรุงคุณภาพน้ำ ศูนย์บริการสาธารณสุขฯ แห่งที่ 2 และแห่งที่ 3
+                  เวรประจำสำนักงานเทศบาลเมืองวารินชำราบ สำนักงานโครงการปรับปรุงคุณภาพน้ำ ศูนย์บริการสาธารณสุข แห่งที่ 2 และแห่งที่ 3
                 </div>
 
                 {/* 2. Appendix & Order clause texts (คำสั่งแนบท้ายและเนื้อความข้อกำหนด) */}
@@ -830,7 +830,7 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                   ประจำเดือน {THAI_MONTHS[month]} พ.ศ. {thaiYear}
                 </div>
                 <div className="text-justify indent-8 leading-snug" style={{ fontSize: `${titleFontSize}pt` }}>
-                  ข้อ 1 เจ้าหน้าที่อยู่เวรและตรวจเวร ประจำสำนักงานเทศบาลเมืองวารินชำราบ ศูนย์บริการสาธารณสุขฯ แห่งที่ 2 และ แห่งที่ 3 (กลางวัน) ในวันเสาร์ - อาทิตย์ และวันหยุดนักขัตฤกษ์ ซึ่งเริ่มปฏิบัติหน้าที่ตั้งแต่เวลา 08.30 - 16.30 น. ประกอบด้วยบุคคลดังต่อไปนี้
+                  ข้อ 1 เจ้าหน้าที่อยู่เวรและตรวจเวร ประจำสำนักงานเทศบาลเมืองวารินชำราบ ศูนย์บริการสาธารณสุข แห่งที่ 2 และ แห่งที่ 3 (กลางวัน) ในวันเสาร์ - อาทิตย์ และวันหยุดนักขัตฤกษ์ ซึ่งเริ่มปฏิบัติหน้าที่ตั้งแต่เวลา 08.30 - 16.30 น. ประกอบด้วยบุคคลดังต่อไปนี้
                 </div>
               </>
             ) : (
