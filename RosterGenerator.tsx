@@ -901,7 +901,7 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                                     <span className="font-normal">
                                       1. {head.fname} {head.lname}
                                       {head.pairNo && (
-                                        <span className="text-[10px] text-rose-600 print:hidden ml-1 font-semibold">
+                                        <span className="text-[13px] text-rose-600 print:hidden ml-1 font-semibold">
                                           (คู่ {head.pairNo})
                                         </span>
                                       )}
