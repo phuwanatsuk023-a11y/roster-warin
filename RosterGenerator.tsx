@@ -658,7 +658,7 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                     max="28"
                     step="0.5"
                     value={dateColFontSize}
-                    onChange={e => setDateColFontSize(parseFloat(e.target.value) || 14)}
+                    onChange={e => setDateColFontSize(parseFloat(e.target.value) || 13)}
                     className="w-full text-center font-bold text-xs py-1 px-0.5 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white"
                   />
                   <span className="text-[10px] text-slate-400">pt</span>
@@ -677,7 +677,7 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                     max="28"
                     step="0.5"
                     value={inspectorColFontSize}
-                    onChange={e => setInspectorColFontSize(parseFloat(e.target.value) || 14)}
+                    onChange={e => setInspectorColFontSize(parseFloat(e.target.value) || 13)}
                     className="w-full text-center font-bold text-xs py-1 px-0.5 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white"
                   />
                   <span className="text-[10px] text-slate-400">pt</span>
