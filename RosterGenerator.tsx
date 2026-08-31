@@ -835,22 +835,7 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
               </>
             ) : (
               <>
-                {/* 1. Main Heading (ชื่อส่วนราชการ/หัวเรื่องหลัก) */}
-                <div
-                  id="roster-heading-title"
-                  className="text-center font-bold mb-1.5 leading-snug"
-                  style={{ fontSize: `${mainTitleFontSize}pt` }}
-                >
-                  เวรประจำสำนักงานเทศบาลเมืองวารินชำราบ สำนักงานโครงการปรับปรุงคุณภาพน้ำ ศูนย์บริการสาธารณสุขฯ แห่งที่ 2 และแห่งที่ 3
-                </div>
-
-                {/* 2. Appendix & Order clause texts (คำสั่งแนบท้ายและเนื้อความข้อกำหนด) */}
-                <div className="text-center mb-1 leading-tight" style={{ fontSize: `${titleFontSize * 0.92}pt` }}>
-                  แนบท้ายคำสั่งเทศบาลเมืองวารินชำราบ ที่ ............... /................. ลงวันที่..........................................
-                </div>
-                <div className="text-center font-bold mb-2 leading-tight" style={{ fontSize: `${titleFontSize}pt` }}>
-                  ประจำเดือน {THAI_MONTHS[month]} พ.ศ. {thaiYear}
-                </div>
+                
                 <div className="text-justify indent-8 leading-snug" style={{ fontSize: `${titleFontSize}pt` }}>
                   ข้อ 2 เจ้าหน้าที่อยู่เวร-ยามและผู้ตรวจเวร ประจำสำนักงานเทศบาลเมืองวารินชำราบ สำนักงานโครงการปรับปรุงคุณภาพน้ำ ศูนย์บริการสาธารณสุข แห่งที่ 2 และแห่งที่ 3 (กลางคืน) ซึ่งเริ่มปฏิบัติหน้าที่ ตั้งแต่เวลา 18.00 - 06.00 น. ของวันรุ่งขึ้น ไม่เว้นวันหยุดราชการ ประกอบด้วยบุคคลดังต่อไปนี้
                 </div>
