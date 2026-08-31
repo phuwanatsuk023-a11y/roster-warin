@@ -84,7 +84,7 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
 
   // Font Size Settings (Customizable per point and per section)
   const [isFontSettingsOpen, setIsFontSettingsOpen] = useState<boolean>(false);
-  const [globalFontSize, setGlobalFontSize] = useState<number>(14);
+  const [globalFontSize, setGlobalFontSize] = useState<number>(13);
   const [mainTitleFontSize, setMainTitleFontSize] = useState<number>(16);
   const [appendixFontSize, setAppendixFontSize] = useState<number>(13);
   const [clauseFontSize, setClauseFontSize] = useState<number>(13);
