@@ -85,11 +85,11 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
   // Font Size Settings (Customizable per point and per section)
   const [isFontSettingsOpen, setIsFontSettingsOpen] = useState<boolean>(false);
   const [globalFontSize, setGlobalFontSize] = useState<number>(14);
-  const [titleFontSize, setTitleFontSize] = useState<number>(15.5);
+  const [titleFontSize, setTitleFontSize] = useState<number>(14);
   const [headerFontSize, setHeaderFontSize] = useState<number>(14);
   const [dateColFontSize, setDateColFontSize] = useState<number>(14);
   const [inspectorColFontSize, setInspectorColFontSize] = useState<number>(14);
-  const [roleBadgeFontSize, setRoleBadgeFontSize] = useState<number>(12);
+  const [roleBadgeFontSize, setRoleBadgeFontSize] = useState<number>(13);
   const [mainTitleFontSize, setMainTitleFontSize] = useState<number>(16);
   const [pointFontSizes, setPointFontSizes] = useState<Record<string, number>>({});
 
