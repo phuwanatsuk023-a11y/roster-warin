@@ -16,7 +16,8 @@ export const THAI_DAYS = [
 
 export function toThaiNumeral(str: string | number | null | undefined): string {
   if (str === null || str === undefined) return '';
-  return str.toString();
+  const thaiDigits = ['๐', '๑', '๒', '๓', '๔', '๕', '๖', '๗', '๘', '๙'];
+  return str.toString().replace(/[0-9]/g, (digit) => thaiDigits[parseInt(digit, 10)]);
 }
 
 export function formatThaiDate(dateStr: string | null | undefined, short = false, includeDayName = false): string {
