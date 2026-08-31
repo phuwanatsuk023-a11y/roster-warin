@@ -85,12 +85,14 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
   // Font Size Settings (Customizable per point and per section)
   const [isFontSettingsOpen, setIsFontSettingsOpen] = useState<boolean>(false);
   const [globalFontSize, setGlobalFontSize] = useState<number>(14);
-  const [titleFontSize, setTitleFontSize] = useState<number>(14.5);
+  const [mainTitleFontSize, setMainTitleFontSize] = useState<number>(16);
+  const [appendixFontSize, setAppendixFontSize] = useState<number>(14);
+  const [clauseFontSize, setClauseFontSize] = useState<number>(14);
   const [headerFontSize, setHeaderFontSize] = useState<number>(14);
   const [dateColFontSize, setDateColFontSize] = useState<number>(14);
   const [inspectorColFontSize, setInspectorColFontSize] = useState<number>(14);
   const [roleBadgeFontSize, setRoleBadgeFontSize] = useState<number>(13);
-  const [mainTitleFontSize, setMainTitleFontSize] = useState<number>(16);
+  const [pairBadgeFontSize, setPairBadgeFontSize] = useState<number>(13);
   const [pointFontSizes, setPointFontSizes] = useState<Record<string, number>>({});
 
   const thaiYear = year + 543;
@@ -567,11 +569,11 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
             </div>
 
             {/* General Sections Font Size */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5">
               {/* Doc Title (Main Heading) */}
-              <div className="bg-white dark:bg-slate-800 p-2.5 rounded-xl border border-slate-200 dark:border-slate-600">
-                <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1 truncate" title="หัวเรื่องเวรประจำสำนักงานฯ">
-                  หัวเรื่องหลัก (สำนักงานฯ)
+              <div className="bg-white dark:bg-slate-800 p-2 rounded-xl border border-slate-200 dark:border-slate-600">
+                <label className="block text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 truncate" title="หัวเรื่องเวรประจำสำนักงานฯ">
+                  หัวเรื่องหลัก
                 </label>
                 <div className="flex items-center gap-1">
                   <input
@@ -581,16 +583,16 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                     step="0.5"
                     value={mainTitleFontSize}
                     onChange={e => setMainTitleFontSize(parseFloat(e.target.value) || 16)}
-                    className="w-full text-center font-bold text-xs py-1 px-1 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white"
+                    className="w-full text-center font-bold text-xs py-1 px-0.5 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white"
                   />
                   <span className="text-[10px] text-slate-400">pt</span>
                 </div>
               </div>
 
-              {/* Doc Appendix & Clause Text */}
-              <div className="bg-white dark:bg-slate-800 p-2.5 rounded-xl border border-slate-200 dark:border-slate-600">
-                <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1 truncate" title="ข้อความแนบท้ายคำสั่งและข้อ 1 / ข้อ 2">
-                  แนบท้ายคำสั่ง / ข้อความ
+              {/* Doc Appendix (แนบท้ายคำสั่ง & ประจำเดือน) */}
+              <div className="bg-white dark:bg-slate-800 p-2 rounded-xl border border-amber-200 dark:border-amber-700 ring-1 ring-amber-500/20">
+                <label className="block text-[10.5px] font-bold text-amber-700 dark:text-amber-300 mb-1 truncate" title="แนบท้ายคำสั่งเทศบาลฯ และ ประจำเดือน">
+                  แนบท้ายคำสั่ง
                 </label>
                 <div className="flex items-center gap-1">
                   <input
@@ -598,18 +600,37 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                     min="8"
                     max="28"
                     step="0.5"
-                    value={titleFontSize}
-                    onChange={e => setTitleFontSize(parseFloat(e.target.value) || 14)}
-                    className="w-full text-center font-bold text-xs py-1 px-1 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white"
+                    value={appendixFontSize}
+                    onChange={e => setAppendixFontSize(parseFloat(e.target.value) || 14)}
+                    className="w-full text-center font-bold text-xs py-1 px-0.5 bg-amber-50/50 dark:bg-slate-700 border border-amber-300 dark:border-amber-600 rounded-lg text-amber-900 dark:text-amber-200"
+                  />
+                  <span className="text-[10px] text-slate-400">pt</span>
+                </div>
+              </div>
+
+              {/* Clause Text (ข้อ 1 / ข้อ 2) */}
+              <div className="bg-white dark:bg-slate-800 p-2 rounded-xl border border-slate-200 dark:border-slate-600">
+                <label className="block text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 truncate" title="เนื้อความคำสั่ง (ข้อ 1 / ข้อ 2)">
+                  ข้อความข้อ 1/2
+                </label>
+                <div className="flex items-center gap-1">
+                  <input
+                    type="number"
+                    min="8"
+                    max="28"
+                    step="0.5"
+                    value={clauseFontSize}
+                    onChange={e => setClauseFontSize(parseFloat(e.target.value) || 14)}
+                    className="w-full text-center font-bold text-xs py-1 px-0.5 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white"
                   />
                   <span className="text-[10px] text-slate-400">pt</span>
                 </div>
               </div>
 
               {/* Table Header Row */}
-              <div className="bg-white dark:bg-slate-800 p-2.5 rounded-xl border border-slate-200 dark:border-slate-600">
-                <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1 truncate" title="หัวตาราง (แถวบนสุด)">
-                  หัวตาราง (แถวบน)
+              <div className="bg-white dark:bg-slate-800 p-2 rounded-xl border border-slate-200 dark:border-slate-600">
+                <label className="block text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 truncate" title="หัวตาราง (แถวบนสุด)">
+                  หัวตาราง
                 </label>
                 <div className="flex items-center gap-1">
                   <input
@@ -619,16 +640,16 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                     step="0.5"
                     value={headerFontSize}
                     onChange={e => setHeaderFontSize(parseFloat(e.target.value) || 14)}
-                    className="w-full text-center font-bold text-xs py-1 px-1 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white"
+                    className="w-full text-center font-bold text-xs py-1 px-0.5 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white"
                   />
                   <span className="text-[10px] text-slate-400">pt</span>
                 </div>
               </div>
 
               {/* Date Column */}
-              <div className="bg-white dark:bg-slate-800 p-2.5 rounded-xl border border-slate-200 dark:border-slate-600">
-                <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1 truncate" title="คอลัมน์วัน/เดือน/ปี">
-                  คอลัมน์วัน/เดือน/ปี
+              <div className="bg-white dark:bg-slate-800 p-2 rounded-xl border border-slate-200 dark:border-slate-600">
+                <label className="block text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 truncate" title="คอลัมน์วัน/เดือน/ปี">
+                  วัน/เดือน/ปี
                 </label>
                 <div className="flex items-center gap-1">
                   <input
@@ -638,16 +659,16 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                     step="0.5"
                     value={dateColFontSize}
                     onChange={e => setDateColFontSize(parseFloat(e.target.value) || 14)}
-                    className="w-full text-center font-bold text-xs py-1 px-1 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white"
+                    className="w-full text-center font-bold text-xs py-1 px-0.5 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white"
                   />
                   <span className="text-[10px] text-slate-400">pt</span>
                 </div>
               </div>
 
               {/* Inspector Column */}
-              <div className="bg-white dark:bg-slate-800 p-2.5 rounded-xl border border-slate-200 dark:border-slate-600">
-                <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1 truncate" title="คอลัมน์ผู้ตรวจเวร">
-                  คอลัมน์ผู้ตรวจเวร
+              <div className="bg-white dark:bg-slate-800 p-2 rounded-xl border border-slate-200 dark:border-slate-600">
+                <label className="block text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 truncate" title="คอลัมน์ผู้ตรวจเวร">
+                  ผู้ตรวจเวร
                 </label>
                 <div className="flex items-center gap-1">
                   <input
@@ -657,15 +678,15 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                     step="0.5"
                     value={inspectorColFontSize}
                     onChange={e => setInspectorColFontSize(parseFloat(e.target.value) || 14)}
-                    className="w-full text-center font-bold text-xs py-1 px-1 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white"
+                    className="w-full text-center font-bold text-xs py-1 px-0.5 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white"
                   />
                   <span className="text-[10px] text-slate-400">pt</span>
                 </div>
               </div>
 
               {/* Role Badge (หน.เวร, ผช.เวร) */}
-              <div className="bg-white dark:bg-slate-800 p-2.5 rounded-xl border border-blue-200 dark:border-blue-700 ring-1 ring-blue-500/20">
-                <label className="block text-[11px] font-bold text-blue-700 dark:text-blue-300 mb-1 truncate" title="ขนาดข้อความ หน.เวร / ผช.เวร">
+              <div className="bg-white dark:bg-slate-800 p-2 rounded-xl border border-blue-200 dark:border-blue-700 ring-1 ring-blue-500/20">
+                <label className="block text-[10.5px] font-bold text-blue-700 dark:text-blue-300 mb-1 truncate" title="ขนาดข้อความ หน.เวร / ผช.เวร">
                   หน.เวร / ผช.เวร
                 </label>
                 <div className="flex items-center gap-1">
@@ -676,7 +697,26 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                     step="0.5"
                     value={roleBadgeFontSize}
                     onChange={e => setRoleBadgeFontSize(parseFloat(e.target.value) || 13)}
-                    className="w-full text-center font-bold text-xs py-1 px-1 bg-blue-50/50 dark:bg-slate-700 border border-blue-300 dark:border-blue-600 rounded-lg text-blue-900 dark:text-blue-200"
+                    className="w-full text-center font-bold text-xs py-1 px-0.5 bg-blue-50/50 dark:bg-slate-700 border border-blue-300 dark:border-blue-600 rounded-lg text-blue-900 dark:text-blue-200"
+                  />
+                  <span className="text-[10px] text-slate-400">pt</span>
+                </div>
+              </div>
+
+              {/* Pair Badge ((คู่ ...)) */}
+              <div className="bg-white dark:bg-slate-800 p-2 rounded-xl border border-rose-200 dark:border-rose-700 ring-1 ring-rose-500/20">
+                <label className="block text-[10.5px] font-bold text-rose-700 dark:text-rose-300 mb-1 truncate" title="ขนาดข้อความ (คู่ ...)">
+                  ข้อความ คู่
+                </label>
+                <div className="flex items-center gap-1">
+                  <input
+                    type="number"
+                    min="6"
+                    max="28"
+                    step="0.5"
+                    value={pairBadgeFontSize}
+                    onChange={e => setPairBadgeFontSize(parseFloat(e.target.value) || 13)}
+                    className="w-full text-center font-bold text-xs py-1 px-0.5 bg-rose-50/50 dark:bg-slate-700 border border-rose-300 dark:border-rose-600 rounded-lg text-rose-900 dark:text-rose-200"
                   />
                   <span className="text-[10px] text-slate-400">pt</span>
                 </div>
@@ -819,25 +859,44 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                   className="text-center font-bold mb-1.5 leading-snug"
                   style={{ fontSize: `${mainTitleFontSize}pt` }}
                 >
-                  เวรประจำสำนักงานเทศบาลเมืองวารินชำราบ สำนักงานโครงการปรับปรุงคุณภาพน้ำ ศูนย์บริการสาธารณสุข แห่งที่ 2 และแห่งที่ 3
+                  เวรประจำสำนักงานเทศบาลเมืองวารินชำราบ สำนักงานโครงการปรับปรุงคุณภาพน้ำ ศูนย์บริการสาธารณสุขฯ แห่งที่ ๒ และแห่งที่ ๓
                 </div>
 
-                {/* 2. Appendix & Order clause texts (คำสั่งแนบท้ายและเนื้อความข้อกำหนด) */}
-                <div className="text-center mb-1 leading-tight" style={{ fontSize: `${titleFontSize * 0.92}pt` }}>
+                {/* 2. Appendix text (แนบท้ายคำสั่ง & ประจำเดือน) */}
+                <div className="text-center mb-1 leading-tight" style={{ fontSize: `${appendixFontSize}pt` }}>
                   แนบท้ายคำสั่งเทศบาลเมืองวารินชำราบ ที่ ............... /................. ลงวันที่..........................................
                 </div>
-                <div className="text-center font-bold mb-2 leading-tight" style={{ fontSize: `${titleFontSize}pt` }}>
-                  ประจำเดือน {THAI_MONTHS[month]} พ.ศ. {thaiYear}
+                <div className="text-center font-bold mb-2 leading-tight" style={{ fontSize: `${appendixFontSize}pt` }}>
+                  ประจำเดือน {THAI_MONTHS[month]} พ.ศ. {toThaiNumeral(thaiYear)}
                 </div>
-                <div className="text-justify indent-8 leading-snug" style={{ fontSize: `${titleFontSize}pt` }}>
-                  ข้อ 1 เจ้าหน้าที่อยู่เวรและตรวจเวร ประจำสำนักงานเทศบาลเมืองวารินชำราบ ศูนย์บริการสาธารณสุข แห่งที่ 2 และ แห่งที่ 3 (กลางวัน) ในวันเสาร์-อาทิตย์ และวันหยุดนักขัตฤกษ์ ซึ่งเริ่มปฏิบัติหน้าที่ตั้งแต่เวลา 08.30 - 16.30 น. ประกอบด้วยบุคคลดังต่อไปนี้
+
+                {/* 3. Clause text (ข้อ 1) */}
+                <div className="text-justify indent-8 leading-snug" style={{ fontSize: `${clauseFontSize}pt` }}>
+                  ข้อ ๑ เจ้าหน้าที่อยู่เวรและตรวจเวร ประจำสำนักงานเทศบาลเมืองวารินชำราบ ศูนย์บริการสาธารณสุขฯ แห่งที่ ๒ และ แห่งที่ ๓ (กลางวัน) ในวันเสาร์ - อาทิตย์ และวันหยุดนักขัตฤกษ์ ซึ่งเริ่มปฏิบัติหน้าที่ตั้งแต่เวลา ๐๘.๓๐ - ๑๖.๓๐ น. ประกอบด้วยบุคคลดังต่อไปนี้
                 </div>
               </>
             ) : (
               <>
-                
-                <div className="text-justify indent-8 leading-snug" style={{ fontSize: `${titleFontSize}pt` }}>
-                  ข้อ 2 เจ้าหน้าที่อยู่เวรและผู้ตรวจเวร ประจำสำนักงานเทศบาลเมืองวารินชำราบ สำนักงานโครงการปรับปรุงคุณภาพน้ำ ศูนย์บริการสาธารณสุข แห่งที่ 2 และแห่งที่ 3 (กลางคืน) ซึ่งเริ่มปฏิบัติหน้าที่ ตั้งแต่เวลา 18.00 - 06.00 น. ประกอบด้วยบุคคลดังต่อไปนี้
+                {/* 1. Main Heading (ชื่อส่วนราชการ/หัวเรื่องหลัก) */}
+                <div
+                  id="roster-heading-title"
+                  className="text-center font-bold mb-1.5 leading-snug"
+                  style={{ fontSize: `${mainTitleFontSize}pt` }}
+                >
+                  เวรประจำสำนักงานเทศบาลเมืองวารินชำราบ สำนักงานโครงการปรับปรุงคุณภาพน้ำ ศูนย์บริการสาธารณสุขฯ แห่งที่ ๒ และแห่งที่ ๓
+                </div>
+
+                {/* 2. Appendix text (แนบท้ายคำสั่ง & ประจำเดือน) */}
+                <div className="text-center mb-1 leading-tight" style={{ fontSize: `${appendixFontSize}pt` }}>
+                  แนบท้ายคำสั่งเทศบาลเมืองวารินชำราบ ที่ ............... /................. ลงวันที่..........................................
+                </div>
+                <div className="text-center font-bold mb-2 leading-tight" style={{ fontSize: `${appendixFontSize}pt` }}>
+                  ประจำเดือน {THAI_MONTHS[month]} พ.ศ. {toThaiNumeral(thaiYear)}
+                </div>
+
+                {/* 3. Clause text (ข้อ 2) */}
+                <div className="text-justify indent-8 leading-snug" style={{ fontSize: `${clauseFontSize}pt` }}>
+                  ข้อ ๒ เจ้าหน้าที่อยู่เวร-ยามและผู้ตรวจเวร ประจำสำนักงานเทศบาลเมืองวารินชำราบ สำนักงานโครงการปรับปรุงคุณภาพน้ำ ศูนย์บริการสาธารณสุข แห่งที่ ๒ และแห่งที่ ๓ (กลางคืน) ซึ่งเริ่มปฏิบัติหน้าที่ ตั้งแต่เวลา ๑๘.๐๐ - ๐๖.๐๐ น. ของวันรุ่งขึ้น ไม่เว้นวันหยุดราชการ ประกอบด้วยบุคคลดังต่อไปนี้
                 </div>
               </>
             )}
@@ -855,7 +914,7 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                     key={pt.id}
                     className="border border-black p-1.5 text-center font-bold bg-white print:bg-transparent whitespace-nowrap"
                   >
-                    {pt.name}
+                    {toThaiNumeral(pt.name)}
                   </th>
                 ))}
                 <th className="border border-black p-1.5 text-center font-bold bg-white print:bg-transparent whitespace-nowrap">
@@ -866,7 +925,7 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
             <tbody>
               {displayRoster.map(r => {
                 const inspectorPerson = personnel.find(p => p.id === r.inspector);
-                const dateThaiStr = `${r.day} ${THAI_SHORT_MONTHS[month]} ${thaiYear}`;
+                const dateThaiStr = `${toThaiNumeral(r.day)} ${THAI_SHORT_MONTHS[month]} ${toThaiNumeral(thaiYear)}`;
 
                 return (
                   <tr key={r.day} className="border-b border-black page-break-inside-avoid">
@@ -899,10 +958,13 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                                 {head && (
                                   <div className="flex justify-between items-center gap-2 whitespace-nowrap">
                                     <span className="font-normal">
-                                      1. {head.fname} {head.lname}
+                                      ๑. {head.fname} {head.lname}
                                       {head.pairNo && (
-                                        <span className="text-[13px] text-rose-600 print:hidden ml-1 font-semibold">
-                                          (คู่ที่ {head.pairNo})
+                                        <span
+                                          className="text-rose-600 print:hidden ml-1 font-semibold"
+                                          style={{ fontSize: `${pairBadgeFontSize}pt` }}
+                                        >
+                                          (คู่ {toThaiNumeral(head.pairNo)})
                                         </span>
                                       )}
                                     </span>
@@ -917,7 +979,7 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                                 {sub && (
                                   <div className="flex justify-between items-center gap-2 whitespace-nowrap">
                                     <span className="font-normal">
-                                      2. {sub.fname} {sub.lname}
+                                      ๒. {sub.fname} {sub.lname}
                                     </span>
                                     <span
                                       className="font-normal shrink-0 ml-2"
@@ -930,7 +992,7 @@ export const RosterGenerator: React.FC<RosterGeneratorProps> = ({
                                 {sub2 && (
                                   <div className="flex justify-between items-center gap-2 whitespace-nowrap">
                                     <span className="font-normal">
-                                      3. {sub2.fname} {sub2.lname}
+                                      ๓. {sub2.fname} {sub2.lname}
                                     </span>
                                     <span
                                       className="font-normal shrink-0 ml-2"
