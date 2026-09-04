@@ -155,6 +155,7 @@ export const PublicDutyCheck: React.FC<PublicDutyCheckProps> = ({
       partnerNames: string[];
       inspectorName: string;
       gender: 'M' | 'F';
+      isPast?: boolean;
       inspectorPoints?: {
         pointName: string;
         gender: 'M' | 'F';
@@ -167,14 +168,9 @@ export const PublicDutyCheck: React.FC<PublicDutyCheckProps> = ({
     const dayMap = new Map<number, { isInspector: boolean; inspectorRows: typeof scheduleRows; normalAssignments: AssignmentItem[] }>();
 
     scheduleRows.forEach(row => {
-      // If current month, only show from today onwards
-      if (isCurrentMonthYear && row.day < currentDayNum) {
-        return;
-      }
-      // If past month, filter out
-      if (isPastMonth) {
-        return;
-      }
+      // Determine if this day is in the past
+      const isPast =
+        isPastMonth || (isCurrentMonthYear && row.day < currentDayNum);
 
       if (!dayMap.has(row.day)) {
         dayMap.set(row.day, { isInspector: false, inspectorRows: [], normalAssignments: [] });
@@ -236,6 +232,7 @@ export const PublicDutyCheck: React.FC<PublicDutyCheckProps> = ({
           partnerNames: partners,
           inspectorName: row.inspector_name || 'ไม่มีผู้ตรวจเวร',
           gender: row.gender,
+          isPast,
         });
       }
     });
@@ -243,6 +240,9 @@ export const PublicDutyCheck: React.FC<PublicDutyCheckProps> = ({
     const finalAssignments: AssignmentItem[] = [];
 
     dayMap.forEach((group, day) => {
+      const isPast =
+        isPastMonth || (isCurrentMonthYear && day < currentDayNum);
+
       if (group.isInspector) {
         // Build aggregated inspector card for this day
         // Find all rows of this day
@@ -289,6 +289,7 @@ export const PublicDutyCheck: React.FC<PublicDutyCheckProps> = ({
           partnerNames: [],
           inspectorName: selectedPerson ? `${selectedPerson.fname} ${selectedPerson.lname}` : 'ผู้ตรวจเวร',
           gender: inspectorGender,
+          isPast,
           inspectorPoints: Array.from(pointsMap.values()),
         });
       }
@@ -342,7 +343,7 @@ export const PublicDutyCheck: React.FC<PublicDutyCheckProps> = ({
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-2">
-            ตรวจสอบรายชื่อเวรยาม
+            ตรวจสอบรายชื่อเวรยามประจำเดือน
           </h1>
           <p className="text-sm sm:text-base text-emerald-100/90 mb-6 font-light">
             ค้นหาด้วยชื่อ-สกุล หรือ รหัสพนักงาน เพื่อดูวันเข้าเวร จุดประจำการ คู่เวรปฏิบัติงาน และผู้ตรวจเวรประจำเดือน
@@ -613,7 +614,7 @@ export const PublicDutyCheck: React.FC<PublicDutyCheckProps> = ({
                 <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-3 md:pt-0 border-slate-100 dark:border-slate-700">
                   <div className="text-right">
                     <p className="text-xs text-slate-500 dark:text-slate-400">
-                      เวรประจำเดือน {THAI_MONTHS[selectedMonth]} {selectedYear + 543} (ตั้งแต่วันปัจจุบัน)
+                      เวรประจำเดือน {THAI_MONTHS[selectedMonth]} {selectedYear + 543}
                     </p>
                     <p className="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">
                       {employeeDutyAssignments.length}{' '}
@@ -636,31 +637,40 @@ export const PublicDutyCheck: React.FC<PublicDutyCheckProps> = ({
                   <div className="col-span-full bg-white dark:bg-slate-800 rounded-xl p-8 text-center border border-slate-200 dark:border-slate-700 text-slate-500">
                     <Info className="w-8 h-8 text-slate-400 mx-auto mb-2" />
                     <p className="font-semibold text-slate-700 dark:text-slate-200">
-                      ไม่มีตารางเข้าเวรตั้งแต่วันปัจจุบันสำหรับ {selectedPerson.fname} {selectedPerson.lname}
+                      ไม่มีตารางเข้าเวรสำหรับ {selectedPerson.fname} {selectedPerson.lname} ในเดือนนี้
                     </p>
                     <p className="text-xs text-slate-500 mt-1">
-                      (ระบบแสดงข้อมูลเวรตั้งแต่วันปัจจุบันเป็นต้นไป หรือท่านอาจอยู่ในสถานะงดเวรในเดือนนี้)
+                      (ท่านอาจอยู่ในสถานะงดเวร หรือยังไม่มีการจัดตารางเวรในเดือนนี้)
                     </p>
                   </div>
                 ) : (
                   employeeDutyAssignments.map((assignment, idx) => {
                     const isWeekend = assignment.dow === 0 || assignment.dow === 6;
+                    const isPast = Boolean(assignment.isPast);
                     return (
                       <div
                         key={idx}
-                        className={`rounded-2xl p-5 border transition-all hover:shadow-md bg-white dark:bg-slate-800 ${
+                        className={`rounded-2xl p-5 border transition-all ${
+                          isPast
+                            ? 'opacity-60 bg-slate-50/80 dark:bg-slate-800/60 border-slate-200/80 dark:border-slate-700/60 hover:opacity-90'
+                            : 'hover:shadow-md bg-white dark:bg-slate-800'
+                        } ${
                           assignment.day === todayDay && isCurrentMonthYear
                             ? 'border-emerald-500 ring-2 ring-emerald-500/20 shadow-emerald-500/10'
-                            : 'border-slate-200 dark:border-slate-700'
+                            : !isPast ? 'border-slate-200 dark:border-slate-700' : ''
                         }`}
                       >
                         {/* Header of shift card */}
                         <div className="flex items-start justify-between mb-3">
                           <div>
-                            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide">
+                            <span className={`text-xs font-bold uppercase tracking-wide ${
+                              isPast ? 'text-slate-400 dark:text-slate-500' : 'text-emerald-600 dark:text-emerald-400'
+                            }`}>
                               ผลัดที่ {idx + 1}
                             </span>
-                            <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-0.5">
+                            <h4 className={`text-base sm:text-lg font-bold mt-0.5 ${
+                              isPast ? 'text-slate-600 dark:text-slate-300' : 'text-slate-900 dark:text-white'
+                            }`}>
                               {formatThaiDate(assignment.dateStr, false, true)}
                             </h4>
                           </div>
@@ -668,6 +678,10 @@ export const PublicDutyCheck: React.FC<PublicDutyCheckProps> = ({
                           {assignment.day === todayDay && isCurrentMonthYear ? (
                             <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 animate-pulse">
                               ปฏิบัติหน้าที่วันนี้
+                            </span>
+                          ) : isPast ? (
+                            <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-200/80 dark:bg-slate-700/80 text-slate-500 dark:text-slate-400">
+                              ผ่านมาแล้ว
                             </span>
                           ) : (
                             <span
